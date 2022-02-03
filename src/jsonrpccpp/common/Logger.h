@@ -30,7 +30,7 @@
 #include "g3log/g3log.hpp"
 #include "g3log/loglevels.hpp"
 #include "g3log/logworker.hpp"
-#include "libUtils/TimeUtils.h"
+#include "jsonrpccpp/common/TimeUtils.h"
 
 #define LIMIT(s, len)                              \
   std::setw(len) << std::setfill(' ') << std::left \
@@ -182,7 +182,7 @@ class ScopeMarker {
     auto cur = std::chrono::system_clock::now();                               \
     auto cur_time_t = std::chrono::system_clock::to_time_t(cur);               \
     oss << "[ " << std::put_time(gmtime(&cur_time_t), "%y-%m-%dT%T.")          \
-        << PAD(get_ms(cur), 3, '0') << " ]" << msg;                            \
+        << " ]" << msg;                            \
     Logger::GetStateLogger(NULL, true,                                         \
                            boost::filesystem::absolute("./").string().c_str()) \
         .LogState(oss.str().c_str());                                          \
@@ -198,7 +198,7 @@ class ScopeMarker {
           std::string(std::string(__FILE__) + ":" + std::to_string(__LINE__)); \
       LOG(level) << "[" << PAD(Logger::GetPid(), Logger::TID_LEN, ' ') << "][" \
                  << std::put_time(gmtime(&cur_time_t), "%y-%m-%dT%T.")         \
-                 << PAD(get_ms(cur), 3, '0') << "]["                           \
+                 <<  "]["                           \
                  << LIMIT_RIGHT(file_and_line, Logger::MAX_FILEANDLINE_LEN)    \
                  << "][" << LIMIT(__FUNCTION__, Logger::MAX_FUNCNAME_LEN)      \
                  << "] " << msg;                                               \
@@ -222,7 +222,7 @@ class ScopeMarker {
           std::string(std::string(__FILE__) + ":" + std::to_string(__LINE__)); \
       LOG(level) << "[" << PAD(Logger::GetPid(), Logger::TID_LEN, ' ') << "][" \
                  << std::put_time(gmtime(&cur_time_t), "%y-%m-%dT%T.")         \
-                 << PAD(get_ms(cur), 3, '0') << "]["                           \
+                 << "]["                           \
                  << LIMIT_RIGHT(file_and_line, Logger::MAX_FILEANDLINE_LEN)    \
                  << "][" << LIMIT(__FUNCTION__, Logger::MAX_FUNCNAME_LEN)      \
                  << "] [Epoch " << std::to_string(epoch).c_str() << "] "       \
@@ -251,7 +251,7 @@ class ScopeMarker {
         LOG(level) << "[" << PAD(Logger::GetPid(), Logger::TID_LEN, ' ')       \
                    << "]["                                                     \
                    << std::put_time(gmtime(&cur_time_t), "%y-%m-%dT%T.")       \
-                   << PAD(get_ms(cur), 3, '0') << "]["                         \
+                   << "]["                         \
                    << LIMIT_RIGHT(file_and_line, Logger::MAX_FILEANDLINE_LEN)  \
                    << "][" << LIMIT(__FUNCTION__, Logger::MAX_FUNCNAME_LEN)    \
                    << "] " << msg << " (Len=" << (payload).size()              \
@@ -260,7 +260,7 @@ class ScopeMarker {
         LOG(level) << "[" << PAD(Logger::GetPid(), Logger::TID_LEN, ' ')       \
                    << "]["                                                     \
                    << std::put_time(gmtime(&cur_time_t), "%y-%m-%dT%T.")       \
-                   << PAD(get_ms(cur), 3, '0') << "]["                         \
+                   << "]["                         \
                    << LIMIT_RIGHT(file_and_line, Logger::MAX_FILEANDLINE_LEN)  \
                    << "][" << LIMIT(__FUNCTION__, Logger::MAX_FUNCNAME_LEN)    \
                    << "] " << msg << " (Len=" << (payload).size()              \

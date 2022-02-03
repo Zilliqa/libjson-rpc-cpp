@@ -9,6 +9,8 @@
 
 #include "client.h"
 #include "rpcprotocolclient.h"
+#include <jsonrpccpp/common/Logger.h>
+
 
 using namespace jsonrpc;
 

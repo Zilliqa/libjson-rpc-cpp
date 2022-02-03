@@ -22,7 +22,7 @@ if (${CMAKE_MAJOR_VERSION} GREATER 2)
     # old policy do not use MACOSX_RPATH
     cmake_policy(SET CMP0042 OLD)
 endif()
-
+set(CMAKE_CXX_STANDARD 14)
 set(MAJOR_VERSION 1)
 set(MINOR_VERSION 3)
 set(PATCH_VERSION 0)
@@ -95,6 +95,9 @@ set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY "${PROJECT_BINARY_DIR}/lib")
 # setup global include_directories (for backwards compatibility)
 include_directories("${CMAKE_BINARY_DIR}/gen/")
 include_directories("${CMAKE_BINARY_DIR}/gen/jsonrpccpp/common")
+
+include_directories(${G3LOG_INCLUDE_DIR})
+
 
 # the core framework
 add_subdirectory(src/jsonrpccpp)
