@@ -14,8 +14,10 @@ using namespace jsonrpc;
 
 Client::Client(IClientConnector &connector, clientVersion_t version,
                bool omitEndingLineFeed)
-    : connector(connector) {
+    : connector(connector)
+{
   this->protocol = new RpcProtocolClient(version, omitEndingLineFeed);
+  INIT_FILE_LOGGER("zilliqa", "LOg_path");
 }
 
 Client::~Client() { delete this->protocol; }

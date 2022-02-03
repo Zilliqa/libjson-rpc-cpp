@@ -11,6 +11,8 @@ HunterGate(
 )
 
 project(libjson-rpc-cpp)
+include(InstallG3log)
+find_package(g3logger CONFIG REQUIRED)
 
 # list command no longer ignores empty elements
 cmake_policy(SET CMP0007 NEW)

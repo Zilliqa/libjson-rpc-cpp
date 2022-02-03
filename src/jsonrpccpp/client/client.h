@@ -14,6 +14,7 @@
 #include "batchcall.h"
 #include "batchresponse.h"
 #include <jsonrpccpp/common/jsonparser.h>
+#include <jsonrpccpp/common/Logger.h>
 
 #include <vector>
 #include <map>
