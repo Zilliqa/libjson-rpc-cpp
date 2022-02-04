@@ -30,8 +30,8 @@ namespace jsonrpc
             Client(IClientConnector &connector, clientVersion_t version = JSONRPC_CLIENT_V2, bool omitEndingLineFeed = false);
             virtual ~Client();
 
-            void        CallMethod          (const std::string &name, const Json::Value &parameter, Json::Value& result) ;
-            Json::Value CallMethod          (const std::string &name, const Json::Value &parameter) ;
+            void        CallMethod          (const std::string &name, const Json::Value &parameter, Json::Value& result, std::stringstream& oss) ;
+            Json::Value CallMethod          (const std::string &name, const Json::Value &parameter, std::stringstream& oss) ;
 
             void           CallProcedures      (const BatchCall &calls, BatchResponse &response) ;
             BatchResponse  CallProcedures      (const BatchCall &calls) ;

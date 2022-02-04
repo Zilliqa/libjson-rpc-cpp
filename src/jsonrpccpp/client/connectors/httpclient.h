@@ -20,7 +20,7 @@ class HttpClient : public IClientConnector {
 public:
   HttpClient(const std::string &url);
   virtual ~HttpClient();
-  virtual void SendRPCMessage(const std::string &message, std::string &result);
+  virtual void SendRPCMessage(const std::string &message, std::string &result,std::stringstream& oss);
 
   void SetUrl(const std::string &url);
   void SetTimeout(long timeout);

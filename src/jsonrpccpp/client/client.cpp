@@ -21,17 +21,20 @@ Client::Client(IClientConnector &connector, clientVersion_t version,
 Client::~Client() { delete this->protocol; }
 
 void Client::CallMethod(const std::string &name, const Json::Value &parameter,
-                        Json::Value &result) {
+                        Json::Value &result, std::stringstream &oss) {
   std::string request, response;
-  protocol->BuildRequest(name, parameter, request, false);
-  connector.SendRPCMessage(request, response);
-  protocol->HandleResponse(response, result);
+  oss << "HI1 ";
+  protocol->BuildRequest(name, parameter, request, false, oss);
+  connector.SendRPCMessage(request, response, oss);
+  protocol->HandleResponse(response, result, oss);
+  oss << "HI2 ";
 }
 
 void Client::CallProcedures(const BatchCall &calls, BatchResponse &result) {
   std::string request, response;
   request = calls.toString();
-  connector.SendRPCMessage(request, response);
+  std::stringstream oss;
+  connector.SendRPCMessage(request, response, oss);
   Json::Reader reader;
   Json::Value tmpresult;
 
@@ -51,7 +54,7 @@ void Client::CallProcedures(const BatchCall &calls, BatchResponse &result) {
       Json::Value singleResult;
       try {
         Json::Value id =
-            this->protocol->HandleResponse(tmpresult[i], singleResult);
+            this->protocol->HandleResponse(tmpresult[i], singleResult, oss);
         result.addResponse(id, singleResult, false);
       } catch (JsonRpcException &ex) {
         Json::Value id = -1;
@@ -72,15 +75,19 @@ BatchResponse Client::CallProcedures(const BatchCall &calls) {
 }
 
 Json::Value Client::CallMethod(const std::string &name,
-                               const Json::Value &parameter) {
+                               const Json::Value &parameter,
+                               std::stringstream &oss) {
   Json::Value result;
-  this->CallMethod(name, parameter, result);
+  oss << "HIC1 ";
+  this->CallMethod(name, parameter, result, oss);
+  oss << "HIC2 ";
   return result;
 }
 
 void Client::CallNotification(const std::string &name,
                               const Json::Value &parameter) {
   std::string request, response;
-  protocol->BuildRequest(name, parameter, request, true);
-  connector.SendRPCMessage(request, response);
+  std::stringstream oss;
+  protocol->BuildRequest(name, parameter, request, true, oss);
+  connector.SendRPCMessage(request, response, oss);
 }

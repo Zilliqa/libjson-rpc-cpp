@@ -19,8 +19,9 @@ int main() {
   Json::Value params;
   params["name"] = "Peter";
 
+  std::stringstream oss;
   try {
-    cout << c.CallMethod("sayHello", params) << endl;
+    cout << c.CallMethod("sayHello", params, oss) << endl;
   } catch (JsonRpcException &e) {
     cerr << e.what() << endl;
   }

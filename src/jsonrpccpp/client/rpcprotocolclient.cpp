@@ -29,41 +29,53 @@ RpcProtocolClient::RpcProtocolClient(clientVersion_t version,
 
 void RpcProtocolClient::BuildRequest(const std::string &method,
                                      const Json::Value &parameter,
-                                     std::string &result, bool isNotification) {
+                                     std::string &result, bool isNotification,
+                                     std::stringstream &oss) {
   Json::Value request;
   Json::StreamWriterBuilder wbuilder;
   wbuilder["indentation"] = "";
+  oss << "HI3 ";
   this->BuildRequest(1, method, parameter, request, isNotification);
 
   result = Json::writeString(wbuilder, request);
 }
 
 void RpcProtocolClient::HandleResponse(const std::string &response,
-                                       Json::Value &result) {
+                                       Json::Value &result,
+                                       std::stringstream &oss) {
   Json::Reader reader;
   Json::Value value;
 
   try {
+    oss << "HI9 ";
     if (reader.parse(response, value)) {
-      this->HandleResponse(value, result);
+      this->HandleResponse(value, result, oss);
     } else {
+      oss << "HIE9 ";
       throw JsonRpcException(Errors::ERROR_RPC_JSON_PARSE_ERROR,
                              " " + response);
     }
   } catch (Json::Exception &e) {
+    oss << "HIEE9 ";
     throw JsonRpcException(Errors::ERROR_RPC_JSON_PARSE_ERROR, " " + response);
   }
 }
 
 Json::Value RpcProtocolClient::HandleResponse(const Json::Value &value,
-                                              Json::Value &result) {
+                                              Json::Value &result,
+                                              std::stringstream &oss) {
+  oss << "HI10 ";
   if (this->ValidateResponse(value)) {
+    oss << "HI11 ";
     if (this->HasError(value)) {
+      oss << "HIE11 ";
       this->throwErrorException(value);
     } else {
+      oss << "HI12 ";
       result = value[KEY_RESULT];
     }
   } else {
+    oss << "HI12E ";
     throw JsonRpcException(Errors::ERROR_CLIENT_INVALID_RESPONSE,
                            " " + value.toStyledString());
   }

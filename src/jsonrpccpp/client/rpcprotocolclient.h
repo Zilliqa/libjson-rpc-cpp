@@ -34,7 +34,7 @@ namespace jsonrpc {
              * @param parameter - parameters represented as json objects
              * @return the string representation of the request to be built.
              */
-            std::string BuildRequest(const std::string& method, const Json::Value& parameter, bool isNotification);
+            std::string BuildRequest(const std::string& method, const Json::Value& parameter, bool isNotification, std::stringstream& oss);
 
             /**
              * @brief BuildRequest does the same as std::string jsonrpc::RpcProRpcProtocolClient::BuildRequest(const std::string& method, const Json::Value& parameter);
@@ -43,14 +43,14 @@ namespace jsonrpc {
              * @param parameter - parameters represented as json objects
              * @param result - the string representation will be hold within this reference.
              */
-            void BuildRequest(const std::string& method, const Json::Value& parameter, std::string& result, bool isNotification);
+            void BuildRequest(const std::string& method, const Json::Value& parameter, std::string& result, bool isNotification, std::stringstream& oss);
 
 
             /**
              * @brief Does the same as Json::Value RpcProtocolClient::HandleResponse(const std::string& response) throw(Exception)
              * but returns result as reference for performance speed up.
              */
-            void HandleResponse(const std::string &response, Json::Value &result) ;
+            void HandleResponse(const std::string &response, Json::Value &result, std::stringstream& oss) ;
 
             /**
              * @brief HandleResponse
@@ -58,7 +58,7 @@ namespace jsonrpc {
              * @param result
              * @return response id
              */
-            Json::Value HandleResponse(const Json::Value &response, Json::Value &result) ;
+            Json::Value HandleResponse(const Json::Value &response, Json::Value &result, std::stringstream& oss) ;
 
             static const std::string KEY_PROTOCOL_VERSION;
             static const std::string KEY_PROCEDURE_NAME;
