@@ -14,7 +14,7 @@ public:
 
   virtual bool StartListening();
   virtual bool StopListening();
-  virtual void SetWaitTime(uint microseconds);
+  virtual void SetWaitTime(unsigned int microseconds);
 
 protected:
   /**
@@ -39,7 +39,7 @@ protected:
 
 private:
   bool running;
-  uint waitTimeMicroseconds = 1000;
+  unsigned int waitTimeMicroseconds = 1000;
   std::unique_ptr<std::thread> listenerThread;
   ThreadPool threadPool;
   size_t threads;

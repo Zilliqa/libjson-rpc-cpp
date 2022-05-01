@@ -33,7 +33,7 @@ bool AbstractThreadedServer::StopListening() {
   return true;
 }
 
-void AbstractThreadedServer::SetWaitTime(uint microseconds)
+void AbstractThreadedServer::SetWaitTime(unsigned int microseconds)
 {
   waitTimeMicroseconds = microseconds;
 }
