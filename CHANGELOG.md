@@ -4,12 +4,32 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [1.4.1] - 2021-11-25
+### Fixed
+- Fedora CI build by updating to Catch v2.13.7
+- Typo in README (#313)
+
+### Changed
+- Vendoring catch library instead of downloading from github
+
+## [1.4.0] - 2021-10-23
+### Fixed
+- Deprecation warnings for Jsoncpp (#312)
+- Compatibility with newer libmicrohttpd versions (>= 0.9.71) (#298 #299)
+- Typo in diagram (#293)
+- File descriptor leaks in connectors
+
+### Changed
+- Moved from travis-ci to circleci (#311)
+- Use `.empty()` checks instead of `.size() == 0`
+
 ## [1.3.0] - 2020-01-13
 ### Added
 - Linux SerialPort client and server connector(#286)
 - Build example for Centos 7 (#267)
 - `Json::Value` example code (#281)
 - IPv6 Support for `HttpServer` (#275)
+- Added data field in error handler in JS stub generator
 
 ### Fixed
 - Incorrect README sections (#280)
